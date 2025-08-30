@@ -118,58 +118,10 @@ Our interface embraces a **vibrant, modern aesthetic** that makes presentation c
 
 ---
 
-## 🚀 Deployment Options
-
-### Cloud Platforms
-- **Vercel**: Zero-config deployment with automatic HTTPS
-- **Railway**: Simple git-based deployment with built-in databases
-- **Render**: Free tier available with automatic SSL
-- **Heroku**: Classic platform with extensive add-on ecosystem
-
-### Self-Hosting
-- **Docker**: Containerized deployment for consistent environments
-- **Traditional VPS**: Direct deployment on Ubuntu/CentOS servers
-- **Kubernetes**: Scalable deployment for enterprise use
-
----
-
-## 🔧 Configuration
-
-### Environment Variables
-```bash
-# Optional: Set default models
-OPENAI_DEFAULT_MODEL=gpt-4o-mini
-ANTHROPIC_DEFAULT_MODEL=claude-3-5-sonnet-latest
-GEMINI_DEFAULT_MODEL=gemini-2.5-flash
-
-# Optional: Rate limiting
-MAX_REQUESTS_PER_MINUTE=60
-MAX_TEXT_LENGTH=60000
-```
-
 ### Customization
 - Modify CSS variables in `index.html` to change colors and styling
 - Update model lists in JavaScript to add new AI models
 - Adjust slide limits and processing parameters in `app.py`
-
----
-
-## 🤝 Contributing
-
-We welcome contributions! Here's how you can help:
-
-1. **Fork the Repository**
-2. **Create a Feature Branch**: `git checkout -b feature/amazing-feature`
-3. **Make Your Changes**: Follow our coding standards
-4. **Test Thoroughly**: Ensure all features work as expected
-5. **Submit a Pull Request**: Describe your changes clearly
-
-### Development Guidelines
-- Follow PEP 8 for Python code
-- Use semantic HTML and modern CSS practices
-- Write clear, descriptive commit messages
-- Add tests for new features
-- Update documentation as needed
 
 ---
 
@@ -178,27 +130,5 @@ We welcome contributions! Here's how you can help:
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
-
-## 🙏 Acknowledgments
-
-- **FastAPI**: For the excellent web framework
-- **python-pptx**: For PowerPoint file manipulation
-- **Font Awesome**: For beautiful icons
-- **Google Fonts**: For the Poppins and Inter typefaces
-- **AI Providers**: OpenAI, Anthropic, Google, and AI Pipe for their powerful APIs
-
----
-
-## 📞 Support
-
-Having issues or questions? We're here to help!
-
-- **GitHub Issues**: Report bugs or request features
-- **Documentation**: Check our comprehensive guides
-- **Community**: Join discussions with other users
-
----
-
-**Made with ❤️ for creators, presenters, and anyone who wants to turn ideas into beautiful presentations**
 
 *AI Power Point - Presentation Studio - Where Ideas Become Presentations* ✨
