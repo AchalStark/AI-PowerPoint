@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description"
+    content="AI Power Point - Transform your ideas into stunning presentations with AI magic ✨" />
+  <meta name="theme-color" content="#ff6b6b" />
+  <title>AI Power Point - Presentation Studio</title>
+
+  <!-- Fonts & icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Bootstrap (utilities/layout) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --panel: rgba(255, 255, 255, 0.95);
+      --border: rgba(255, 255, 255, 0.3);
+      --text: #2d3748;
+      --muted: #718096;
+      --accent: #ff6b6b;
+      --accent-hover: #ff5252;
+      --chip: rgba(255, 107, 107, 0.1);
+      --card-radius: 20px;
+      --shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      --shadow-hover: 0 25px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Poppins', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* Top nav */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(255, 255, 255, 0.25);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-brand {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .nav-brand i {
+      font-size: 2rem;
+      color: var(--accent);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+
+    .nav-controls {
+      display: flex;
+      gap: 12px;
+      align-items: center
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      padding: 12px 15px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      background: white;
+    }
+
+    /* App layout */
+    .app-wrap {
+      max-width: 1400px;
+      margin: 30px auto;
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 30px;
+      padding: 0 20px;
+    }
+
+    @media (max-width:980px) {
+      .app-wrap {
+        grid-template-columns: 1fr;
+        margin: 20px auto;
+        gap: 20px;
+      }
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background: var(--panel);
+      border: 3px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 25px;
+      height: calc(100vh - 160px);
+      overflow: auto;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+      transition: all 0.3s ease;
+    }
+
+    .sidebar:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-5px);
+    }
+
+    .sidebar h4 {
+      margin: 0 0 15px 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .tool-item {
+      padding: 15px 20px;
+      border-radius: 15px;
+      border: 2px solid transparent;
+      margin-bottom: 12px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--text);
+      transition: all 0.3s ease;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tool-item:hover {
+      transform: translateX(5px);
+      background: rgba(255, 255, 255, 0.9);
+      border-color: var(--accent);
+    }
+
+    .tool-item.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      color: white;
+      border-color: var(--accent);
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+    }
+
+    /* Main */
+    .main {
+      min-height: 600px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 3px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 30px;
+      color: var(--text);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
+
+    .muted {
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* slide layout */
+    .slide-panel {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 25px;
+      margin-top: 25px;
+    }
+
+    @media (max-width:980px) {
+      .slide-panel {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    textarea,
+    input,
+    select {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text);
+      border: 2px solid var(--border);
+      padding: 15px 20px;
+      border-radius: 15px;
+      width: 100%;
+      font-family: inherit;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    textarea:focus,
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1), 0 8px 25px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+
+    textarea {
+      min-height: 250px;
+      resize: vertical;
+      font-family: 'Inter', monospace;
+      line-height: 1.6;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 15px 30px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.8);
+      border: 2px solid var(--border);
+      color: var(--text);
+      padding: 12px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-ghost:hover {
+      background: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border-color: var(--accent);
+    }
+
+    .chip {
+      background: var(--chip);
+      border: 2px solid rgba(255, 107, 107, 0.2);
+      border-radius: 15px;
+      padding: 12px 16px;
+      color: var(--accent);
+      font-weight: 500;
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.1);
+    }
+
+    .toast-wrap {
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
+      z-index: 1400;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .toast {
+      background: var(--panel);
+      border: 3px solid var(--border);
+      padding: 20px 25px;
+      border-left: 6px solid var(--accent);
+      border-radius: 15px;
+      color: var(--text);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+      min-width: 300px;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .toast.success {
+      border-left-color: #48bb78;
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .toast.error {
+      border-left-color: #f56565;
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    /* small helpers */
+    .small-muted {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    [aria-live] {
+      outline: none
+    }
+
+    /* Labels */
+    label {
+      display: block;
+      margin-bottom: 8px;
+      margin-top: 15px;
+      font-weight: 600;
+      color: var(--text);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Headings */
+    h2,
+    h3,
+    h4 {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Floating elements */
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Background decorations */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(118, 75, 162, 0.05) 0%, transparent 50%);
+      animation: backgroundMove 20s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes backgroundMove {
+
+      0%,
+      100% {
+        transform: rotate(0deg);
+      }
+
+      50% {
+        transform: rotate(180deg);
+      }
+    }
+
+    /* Pulse animation for buttons */
+    .btn-primary:not(:disabled) {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5), 0 0 0 10px rgba(255, 107, 107, 0.1);
+      }
+
+      100% {
+        box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+      }
+    }
+
+    /* Gradient text animation */
+    .gradient-text {
+      background: linear-gradient(-45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top nav -->
+  <header class="top-nav" role="banner">
+    <div class="nav-brand floating">
+      <i class="fas fa-magic"></i>
+      <div style="display:flex;flex-direction:column;line-height:1.2">
+        <span class="brand-text"
+          style="color:white;font-weight:800;text-shadow:2px 2px 4px rgba(0,0,0,0.3);background:linear-gradient(135deg,var(--accent),var(--accent-hover));padding:8px 16px;border-radius:12px;box-shadow:0 4px 15px rgba(255,107,107,0.4);">AI
+          Power Point</span>
+        <small
+          style="color:white;font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;font-weight:600;text-shadow:1px 1px 2px rgba(0,0,0,0.3);margin-top:4px;display:block;">Presentation
+          Studio</small>
+      </div>
+    </div>
+
+    <div class="nav-controls">
+      <button id="theme-toggle" class="nav-btn" title="Toggle theme"><i class="fas fa-moon"></i></button>
+      <button id="settings-open" class="nav-btn" title="Settings"><i class="fas fa-cog"></i></button>
+    </div>
+  </header>
+
+  <div class="app-wrap" role="main">
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="Tools & history">
+      <h4><i class="fas fa-tools"></i> Tools</h4>
+      <div id="toolSlides" class="tool-item active" role="button" tabindex="0"><i class="fas fa-presentation"></i> Slide
+        Generator</div>
+
+      <h4 style="margin-top:20px"><i class="fas fa-history"></i> Recent Creations</h4>
+      <div id="historyList" style="display:flex;flex-direction:column;gap:8px;min-height:120px"></div>
+
+      <div style="margin-top:20px;display:flex;gap:12px">
+        <button id="export-history" class="btn btn-ghost" title="Export history" style="flex:1;"><i
+            class="fas fa-file-export"></i> Export</button>
+        <button id="clear-history" class="btn btn-ghost" title="Clear history" style="flex:1;"><i
+            class="fas fa-broom"></i> Clear</button>
+      </div>
+
+      <div style="margin-top:15px;padding:15px;background:rgba(255,255,255,0.6);border-radius:10px;"
+        class="small-muted">
+        <i class="fas fa-shield-alt" style="color:var(--accent);margin-right:5px;"></i>
+        Your privacy matters! We only store presentation metadata locally - no API keys or sensitive data.
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:start;gap:20px">
+          <div>
+            <h2 style="margin:0" class="floating">🎨 Create Amazing Presentations</h2>
+            <div class="muted" style="margin-top:10px;font-size:1.1rem;line-height:1.6;">Transform your ideas into
+              stunning slides! Just paste your content, pick your AI model, and watch the magic happen ✨</div>
+          </div>
+
+        </div>
+
+        <!-- slide generator form -->
+        <div class="slide-panel">
+          <!-- left: content -->
+          <section class="card" style="padding:25px">
+            <h4 style="margin-top:0;display:flex;align-items:center;gap:10px;"><i class="fas fa-edit"
+                style="color:var(--accent);"></i> Content Creation</h4>
+            <label for="text">Your Text or Markdown</label>
+            <textarea id="text"
+              placeholder="✨ Paste your amazing content here! Whether it's research notes, meeting minutes, or creative ideas - I'll transform them into beautiful slides for you..."></textarea>
+
+            <div style="display:grid;grid-template-columns:1fr 140px;gap:10px;margin-top:10px">
+              <div>
+                <label for="guidance">One-line guidance (optional)</label>
+                <input id="guidance" type="text" placeholder="🎯 e.g., investor pitch, tech summary, creative workshop">
+              </div>
+              <div>
+                <label for="num_slides">Number of slides</label>
+                <input id="num_slides" type="number" min="1" max="40" value="10">
+                <div class="small-muted">1–40</div>
+              </div>
+            </div>
+
+            <label for="template" style="margin-top:10px">Template (.pptx/.potx) — optional</label>
+            <input id="template" type="file" accept=".pptx,.potx">
+
+            <label style="margin-top:10px"><input id="reuse_images" type="checkbox"> Reuse images from template (safe
+              placement)</label>
+          </section>
+
+          <!-- right: provider & controls -->
+          <aside class="card" style="padding:25px">
+            <h4 style="margin-top:0;display:flex;align-items:center;gap:10px;"><i class="fas fa-cogs"
+                style="color:var(--accent);"></i> AI Configuration</h4>
+
+            <label for="provider">LLM Provider</label>
+            <select id="provider">
+              <option value="aipipe">AI Pipe (OpenRouter)</option>
+              <option value="openai">OpenAI</option>
+              <option value="gemini">Gemini (Google)</option>
+              <option value="anthropic">Anthropic (Claude)</option>
+            </select>
+
+            <label for="api_key" style="margin-top:8px">API Key / Token</label>
+            <div style="display:flex;gap:8px">
+              <input id="api_key" type="password" placeholder="Paste your key/token..." style="flex:1">
+              <button id="paste_key" class="nav-btn" title="Paste from clipboard"><i
+                  class="fas fa-clipboard"></i></button>
+            </div>
+
+            <label for="model" style="margin-top:8px">Model</label>
+            <select id="model"></select>
+            <div id="model_hint" class="small-muted" style="margin-top:6px">Select provider to view models</div>
+
+            <div style="display:flex;gap:15px;margin-top:20px;flex-wrap:wrap;">
+              <button id="generate" class="btn btn-primary" disabled><i class="fas fa-sparkles"></i> Create Magic
+                ✨</button>
+              <button id="btn_clear" class="btn btn-ghost"><i class="fas fa-undo"></i> Reset</button>
+            </div>
+
+            <div id="status" aria-live="polite" class="small-muted" style="margin-top:10px"></div>
+          </aside>
+        </div>
+
+        <!-- output preview -->
+        <div id="output" style="margin-top:12px"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- settings dialog -->
+  <div id="settings"
+    style="display:none;position:fixed;inset:0;place-items:center;z-index:1500;backdrop-filter: blur(20px);background:rgba(0,0,0,0.3);">
+    <div
+      style="background:var(--panel);border:3px solid var(--border);padding:40px;border-radius:var(--card-radius);max-width:500px;margin:40px auto;color:var(--text);box-shadow:var(--shadow-hover);backdrop-filter:blur(20px);animation:slideIn 0.3s ease;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;">
+        <h3 style="margin:0;font-size:1.5rem;color:var(--accent);">Settings</h3>
+        <button id="close_settings" class="nav-btn"><i class="fas fa-times"></i></button>
+      </div>
+      <div style="margin-bottom:25px;">
+        <label>Max history items</label>
+        <input id="max_history" type="number" min="10" max="1000" value="200" style="width:150px;">
+      </div>
+      <div style="text-align:right">
+        <button id="save_settings" class="btn btn-primary">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- performance & toasts -->
+  <div id="perf"
+    style="position:fixed;left:25px;bottom:25px;background:var(--panel);border:3px solid var(--border);padding:20px;border-radius:15px;color:var(--muted);z-index:1400;box-shadow:var(--shadow);backdrop-filter:blur(20px);min-width:200px;">
+    <div style="font-weight:700;color:var(--accent);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;">
+      Performance</div>
+    <div style="font-size:.9rem;margin-bottom:5px;">Response: <span id="perf_time"
+        style="color:var(--accent);font-weight:600;">0ms</span></div>
+    <div style="font-size:.9rem;">API calls: <span id="perf_calls" style="color:var(--accent);font-weight:600;">0</span>
+    </div>
+  </div>
+
+  <div id="toasts" class="toast-wrap" aria-live="polite"></div>
+
+  <!-- bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    /* ========= PPT-only GyaanSetu UI — Single file =========
+       - Compatible with /generate (your app.py)
+       - Expanded model lists per provider
+       - All UI functions implemented: validate, paste key, model list, generate (fetch -> blob), history, download
+    ====================================================== */
+
+    (function () {
+      // Elements
+      const providerEl = document.getElementById('provider');
+      const modelEl = document.getElementById('model');
+      const modelHintEl = document.getElementById('model_hint');
+      const apiKeyEl = document.getElementById('api_key');
+      const pasteKeyBtn = document.getElementById('paste_key');
+
+      const textEl = document.getElementById('text');
+      const guidanceEl = document.getElementById('guidance');
+      const numSlidesEl = document.getElementById('num_slides');
+      const templateEl = document.getElementById('template');
+      const reuseImagesEl = document.getElementById('reuse_images');
+
+      const generateBtn = document.getElementById('generate');
+      const clearBtn = document.getElementById('btn_clear');
+      const statusEl = document.getElementById('status');
+      const outputEl = document.getElementById('output');
+
+      const historyListEl = document.getElementById('historyList');
+      const exportHistoryBtn = document.getElementById('export-history');
+      const clearHistoryBtn = document.getElementById('clear-history');
+      const maxHistoryEl = document.getElementById('max_history');
+
+      const toastsEl = document.getElementById('toasts');
+      const perfTimeEl = document.getElementById('perf_time');
+      const perfCallsEl = document.getElementById('perf_calls');
+
+      const settingsOpenBtn = document.getElementById('settings-open');
+      const settingsModal = document.getElementById('settings');
+      const closeSettingsBtn = document.getElementById('close_settings');
+      const saveSettingsBtn = document.getElementById('save_settings');
+
+      const themeToggle = document.getElementById('theme-toggle');
+
+      // State
+      const HISTORY_KEY = 'gyaan_deck_history_v1';
+      const STATE_KEY = 'gyaan_deck_state_v1';
+      let lastBlobUrl = null;
+      let apiCalls = 0;
+
+      // Models (expanded lists)
+      const MODELS = {
+        openai: [
+          { id: 'gpt-4o-mini', label: 'gpt-4o-mini' },
+          { id: 'gpt-4o', label: 'gpt-4o' },
+          { id: 'gpt-4.1-nano', label: 'gpt-4.1-nano' },
+          { id: 'gpt-4o-realtime-preview', label: 'gpt-4o-realtime-preview' },
+          { id: 'gpt-4.1', label: 'gpt-4.1' }
+        ],
+        aipipe: [
+          { id: 'gpt-4o-mini', label: 'gpt-4o-mini' },
+          { id: 'gpt-4o', label: 'gpt-4o' },
+          { id: 'gpt-4.1-nano', label: 'gpt-4.1-nano' }
+        ],
+        gemini: [
+          { id: 'gemini-1.5-flash', label: 'gemini-1.5-flash' },
+          { id: 'gemini-2.1', label: 'gemini-2.1' },
+          { id: 'gemini-2.5-flash', label: 'gemini-2.5-flash' },
+          { id: 'gemini-2.5-pro', label: 'gemini-2.5-pro' }
+        ],
+        anthropic: [
+          { id: 'claude-2.1', label: 'claude-2.1' },
+          { id: 'claude-3-5-sonnet', label: 'claude-3-5-sonnet' },
+          { id: 'claude-3-5-sonnet-latest', label: 'claude-3-5-sonnet-latest' },
+          { id: 'claude-3', label: 'claude-3' }
+        ]
+      };
+
+      // Helpers
+      function toast(msg, kind = 'info') {
+        const el = document.createElement('div');
+        el.className = 'toast ' + (kind === 'success' ? 'success' : kind === 'error' ? 'error' : '');
+        el.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div>${msg}</div><button aria-label="close" style="background:none;border:none;color:var(--muted);cursor:pointer">&times;</button></div>`;
+        toastsEl.appendChild(el);
+        const closeBtn = el.querySelector('button');
+        closeBtn.onclick = () => el.remove();
+        setTimeout(() => el.remove(), 4500);
+      }
+
+      function readHistory() {
+        try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch (e) { return []; }
+      }
+      function writeHistory(arr) { localStorage.setItem(HISTORY_KEY, JSON.stringify(arr.slice(0, Number(maxHistoryEl.value || 200)))); }
+      function addHistory(meta) {
+        const arr = readHistory(); arr.unshift(meta); writeHistory(arr); renderHistory();
+      }
+
+      function renderHistory() {
+        const arr = readHistory();
+        historyListEl.innerHTML = '';
+        if (!arr.length) {
+          historyListEl.innerHTML = '<div class="small-muted">No generations yet</div>'; return;
+        }
+        for (const h of arr) {
+          const el = document.createElement('div');
+          el.className = 'card';
+          el.style.display = 'flex'; el.style.justifyContent = 'space-between'; el.style.alignItems = 'center';
+          el.style.padding = '8px'; el.style.gap = '8px';
+          el.innerHTML = `<div><strong>${escapeHtml(h.title || 'Deck')}</strong><div class="small-muted">${new Date(h.ts).toLocaleString()} • ${h.model || ''} • ${h.slides} slides</div></div>
+                        <div style="display:flex;gap:8px">
+                          <button class="btn btn-ghost btn-sm" data-id="${h.ts}" data-act="recreate"><i class="fas fa-repeat"></i></button>
+                          <button class="btn btn-ghost btn-sm" data-id="${h.ts}" data-act="download"><i class="fas fa-download"></i></button>
+                        </div>`;
+          historyListEl.appendChild(el);
+
+          el.querySelector('[data-act="recreate"]').onclick = () => {
+            genLoadMeta(h);
+            toast('Parameters loaded. Press Generate to re-create.', 'success');
+          };
+          el.querySelector('[data-act="download"]').onclick = () => {
+            // Recreate -> download (makes a new server request)
+            genLoadMeta(h);
+            generate(); // re-generate and auto-enable download
+            toast('Recreating deck for download...', 'info');
+          };
+        }
+      }
+
+      function escapeHtml(s = '') { return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+
+      // persist some small state: api key prefix and max history
+      function loadState() {
+        try {
+          const s = JSON.parse(localStorage.getItem(STATE_KEY) || '{}');
+          if (s.apiKeyPrefix) apiKeyEl.value = s.apiKeyPrefix;
+          if (s.maxHistory) maxHistoryEl.value = s.maxHistory;
+        } catch { }
+      }
+      function saveState() {
+        try {
+          const s = { apiKeyPrefix: apiKeyEl.value ? apiKeyEl.value.slice(0, 32) : '', maxHistory: Number(maxHistoryEl.value || 200) };
+          localStorage.setItem(STATE_KEY, JSON.stringify(s));
+        } catch { }
+      }
+      window.addEventListener('beforeunload', saveState);
+
+      // Provider -> models
+      function applyModels() {
+        const p = providerEl.value;
+        modelEl.innerHTML = '';
+        (MODELS[p] || []).forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m.id; opt.textContent = m.label;
+          modelEl.appendChild(opt);
+        });
+        modelHintEl.textContent = p === 'openai' ? 'OpenAI models' : p === 'aipipe' ? 'AI Pipe (OpenRouter) models' : p === 'anthropic' ? 'Anthropic models' : 'Gemini models';
+      }
+
+      providerEl.addEventListener('change', () => { applyModels(); validate(); });
+
+      pasteKeyBtn.addEventListener('click', async () => {
+        try {
+          const text = await navigator.clipboard.readText();
+          apiKeyEl.value = (text || '').trim();
+          toast('API key pasted', 'success');
+          validate();
+        } catch (e) { toast('Clipboard access denied', 'error'); }
+      });
+
+      // validation
+      function validate() {
+        const ok = (textEl.value || '').trim().length > 10 &&
+          (apiKeyEl.value || '').trim().length > 6 &&
+          (numSlidesEl.value && Number(numSlidesEl.value) >= 1 && Number(numSlidesEl.value) <= 40);
+        generateBtn.disabled = !ok;
+        return ok;
+      }
+      [textEl, apiKeyEl, numSlidesEl].forEach(el => el.addEventListener('input', validate));
+      applyModels();
+      loadState();
+      renderHistory();
+      validate();
+
+      // clear form
+      clearBtn.addEventListener('click', () => {
+        textEl.value = ''; guidanceEl.value = ''; numSlidesEl.value = 10; templateEl.value = ''; reuseImagesEl.checked = false; statusEl.textContent = ''; validate();
+      });
+
+
+      // generate function: posts to /generate
+      async function generate() {
+        if (!validate()) { toast('Please complete required fields', 'error'); return; }
+        setBusy(true);
+        statusEl.textContent = 'Generating…';
+        const start = performance.now(); apiCalls++; perfCallsEl.textContent = apiCalls;
+
+        try {
+          const fd = new FormData();
+          fd.append('text', (textEl.value || '').trim());
+          fd.append('guidance', (guidanceEl.value || '').trim());
+          fd.append('provider', providerEl.value);
+          fd.append('api_key', apiKeyEl.value);
+          fd.append('model', modelEl.value);
+          fd.append('num_slides', numSlidesEl.value);
+          fd.append('reuse_images', reuseImagesEl.checked ? 'true' : 'false');
+          if (templateEl.files && templateEl.files[0]) fd.append('template', templateEl.files[0]);
+
+          const resp = await fetch('/generate', { method: 'POST', body: fd });
+          if (!resp.ok) {
+            const text = await resp.text().catch(() => '');
+            let hint = '';
+            if (resp.status === 401) hint = ' — invalid/missing key for provider';
+            else if (resp.status === 429) hint = ' — rate limit / quota';
+            else if (/model|not\s*found|unsupported/i.test(text)) hint = ' — model not allowed for your key';
+            throw new Error(`Server ${resp.status}${hint} ${text}`);
+          }
+          const blob = await resp.blob();
+          // create blob URL
+          if (lastBlobUrl) URL.revokeObjectURL(lastBlobUrl);
+          lastBlobUrl = URL.createObjectURL(blob);
+
+
+          // metadata -> add history (NO key stored)
+          const meta = {
+            ts: Date.now(),
+            title: (guidanceEl.value || textEl.value.slice(0, 80)).replace(/\n/g, ' '),
+            slides: Number(numSlidesEl.value),
+            provider: providerEl.value,
+            model: modelEl.value,
+            text: (textEl.value || '').slice(0, 200), // small preview
+          };
+          addHistory(meta);
+
+          // output preview
+          renderOutput(meta);
+
+          statusEl.textContent = 'Ready — click Download last';
+          toast('Presentation generated', 'success');
+        } catch (err) {
+          console.error(err);
+          statusEl.textContent = 'Error: ' + (err.message || 'Unknown');
+          toast('Generate failed: ' + (err.message || 'Unknown'), 'error');
+        } finally {
+          const elapsed = Math.round(performance.now() - start);
+          perfTimeEl.textContent = elapsed + 'ms';
+          setBusy(false);
+        }
+      }
+
+      function setBusy(b) {
+        generateBtn.disabled = b;
+        generateBtn.innerHTML = b ? '<i class="fas fa-circle-notch fa-spin"></i> Generating...' : '<i class="fas fa-magic"></i> Generate .pptx';
+      }
+
+      function renderOutput(meta) {
+        outputEl.innerHTML = '';
+        const box = document.createElement('div');
+        box.className = 'card';
+        box.style.display = 'flex'; box.style.justifyContent = 'space-between'; box.style.alignItems = 'center';
+        box.style.padding = '10px';
+        box.innerHTML = `<div><strong>${escapeHtml(meta.title)}</strong><div class="small-muted">${new Date(meta.ts).toLocaleString()} • ${meta.slides} slides • ${meta.model}</div></div>
+                       <div style="display:flex;gap:8px"><button id="dl-now" class="btn btn-primary small"><i class="fas fa-download"></i> Download</button></div>`;
+        outputEl.appendChild(box);
+        document.getElementById('dl-now').onclick = () => {
+          if (!lastBlobUrl) { toast('No generated file available', 'error'); return; }
+          const a = document.createElement('a'); a.href = lastBlobUrl; a.download = 'generated.pptx'; a.click();
+        };
+      }
+
+      // load metadata into form from history
+      function genLoadMeta(h) {
+        textEl.value = h.text || textEl.value;
+        guidanceEl.value = h.guidance || guidanceEl.value;
+        numSlidesEl.value = h.slides || numSlidesEl.value;
+        providerEl.value = h.provider || providerEl.value;
+        applyModels();
+        modelEl.value = h.model || modelEl.value;
+        validate();
+      }
+
+      // history actions
+      exportHistoryBtn.addEventListener('click', () => {
+        const arr = readHistory();
+        const blob = new Blob([JSON.stringify(arr, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'gyaan_deck_history.json'; a.click();
+        URL.revokeObjectURL(url);
+      });
+      clearHistoryBtn.addEventListener('click', () => { writeHistory([]); renderHistory(); toast('History cleared', 'success'); });
+
+      // settings modal
+      settingsOpenBtn.addEventListener('click', () => settingsModal.style.display = 'grid');
+      closeSettingsBtn.addEventListener('click', () => settingsModal.style.display = 'none');
+      saveSettingsBtn.addEventListener('click', () => {
+        saveState(); settingsModal.style.display = 'none'; toast('Settings saved', 'success');
+      });
+
+      // theme toggle: toggles color-scheme
+      themeToggle.addEventListener('click', () => {
+        const cs = document.documentElement.style.colorScheme || '';
+        if (cs === 'dark') document.documentElement.style.colorScheme = 'light';
+        else if (cs === 'light') document.documentElement.style.colorScheme = '';
+        else document.documentElement.style.colorScheme = 'dark';
+        toast('Theme toggled', 'info');
+      });
+
+      // keyboard: Ctrl/Cmd+G generate
+      window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'g') {
+          e.preventDefault(); if (!generateBtn.disabled) generate();
+        }
+      });
+
+      // wire generate button
+      generateBtn.addEventListener('click', generate);
+
+      // small util functions
+      function escapeHtml(s = '') { return ('' + s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+
+      // initial
+      (function init() {
+        loadState();
+        applyModels();
+        renderHistory();
+      })();
+
+      // Expose validate to global for debugging if needed
+      window.__gyaan_validate = validate;
+    })();
+  </script>
+</body>
+
+</html>
